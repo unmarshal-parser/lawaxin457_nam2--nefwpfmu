@@ -1,0 +1,42 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Contract
+    network: base
+    source:
+      address: "C876E9Cdd16acD38c57200084345d76a673caC9A"
+      abi: Contract
+      startBlock: 3392476
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ExcludeFromFees
+        - OwnershipTransferred
+        - SwapAndLiquify
+        - SwapAndSendMarketing
+        - SwapTokensAtAmountUpdated
+        - Transfer
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: ExcludeFromFees(indexed address,bool)
+          handler: handleExcludeFromFees
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: SwapAndLiquify(uint256,uint256,uint256)
+          handler: handleSwapAndLiquify
+        - event: SwapAndSendMarketing(uint256,uint256)
+          handler: handleSwapAndSendMarketing
+        - event: SwapTokensAtAmountUpdated(uint256)
+          handler: handleSwapTokensAtAmountUpdated
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/contract.ts
